@@ -1,0 +1,14 @@
+---
+- hosts: ubuntu-slave
+  become: true
+  tasks:
+      - name: java_installation 
+        command: "sudo apt install default-jdk-headless" 
+      - name:  jenkins_download
+        command: "wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -"
+      - name: Add the necessary repository 
+        command: "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
+      - name: Add the universe repository
+        command: "sudo add-apt-repository universe" 
+      - name:  jenkins_install
+        command: "sudo apt-get install jenkins -y"
